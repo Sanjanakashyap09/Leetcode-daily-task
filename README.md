@@ -1,7 +1,7 @@
 # 🚀 Sanjana's LeetCode Daily Solutions
 
 Welcome to my **LeetCode Practice Repository**!  
-This repo documents my journey of solving Data Structures & Algorithms (DSA) problems every day to sharpen my skills for **GATE CSE, competitive programming, and interviews**.
+This repo documents my journey of solving Data Structures & Algorithms (DSA) problems every day to sharpen my skills for **competitive programming, and interviews**.
 
 ---
 
