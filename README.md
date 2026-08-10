@@ -14,8 +14,7 @@ This repository documents my journey of solving **Data Structures & Algorithms (
 
 ## 🛠️ Tech Stack
 - **Languages:** C++  
-- **Core Topics:** Arrays, Strings, Linked Lists, Trees, Graphs, Dynamic Programming, SQL Queries  
-- **Platform:** GitHub  
+- **Core Topics:** Arrays, Strings, Linked Lists, Trees, Graphs, Dynamic Programming
 
 ---
 
