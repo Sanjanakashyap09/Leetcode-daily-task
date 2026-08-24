@@ -8,10 +8,13 @@ public:
             prefix[i] = prefix[i-1] + stones[i];
         }
 
-        long long best = prefix[n-1];
+        vector<long long> dp(n);
+        dp[n-1] = prefix[n-1]; // base case
+
         for (int i = n-2; i >= 1; i--) {
-            best = max(best, prefix[i] - best);
+            dp[i] = max(dp[i+1], prefix[i] - dp[i+1]);
         }
-        return best;
+
+        return dp[1];
     }
 };
