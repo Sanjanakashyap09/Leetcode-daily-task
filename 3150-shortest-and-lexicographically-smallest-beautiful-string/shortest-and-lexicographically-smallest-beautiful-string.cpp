@@ -1,28 +1,25 @@
 class Solution {
 public:
     string shortestBeautifulSubstring(string s, int k) {
-        int n = s.length();
-        for (int len = k; len <= n; len++) {   // check all lengths >= k
-            string result = "";
+        int n = s.size();
+        int left = 0, ones = 0;
+        string result = "";
 
-            for (int start = 0; start <= n - len; start++) {
-                string temp = s.substr(start, len);
+        for (int right = 0; right < n; right++) {
+            if (s[right] == '1') ones++;
 
-                int ones = 0;
-                for (char &ch : temp) {
-                    ones += (ch == '1') ? 1 : 0;
+            // shrink window until ones == k
+            while (ones == k) {
+                string temp = s.substr(left, right - left + 1);
+                if (result.empty() || temp.size() < result.size() ||
+                   (temp.size() == result.size() && temp < result)) {
+                    result = temp;
                 }
-
-                if (ones == k) {
-                    if (result.empty() || temp < result) {
-                        result = temp;
-                    }
-                }
-            }
-            if (!result.empty()) {
-                return result;   // return first valid shortest substring
+                // shrink from left to try smaller substring
+                if (s[left] == '1') ones--;
+                left++;
             }
         }
-        return ""; // if no substring found
+        return result;
     }
 };
