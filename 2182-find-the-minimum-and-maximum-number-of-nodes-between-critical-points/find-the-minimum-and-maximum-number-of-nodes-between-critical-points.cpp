@@ -1,51 +1,36 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
 class Solution {
 public:
     vector<int> nodesBetweenCriticalPoints(ListNode* head) {
+        int idx = 1; // node index
+        int firstCritical = -1, lastCritical = -1, prevCritical = -1;
+        int minDist = INT_MAX;
 
-        // Variables to store values of previous, current, and next nodes
-        int prevVal= 0;
-        int currVal=0;
-        int nextVal=0;
+        ListNode* prev = head;
+        ListNode* curr = head->next;
 
-        int minDist= INT_MAX;   // Minimum distance initialized to maximum possible
-        int firstCriticalPos=0;;  // Position of the first critical point
-        int prevCriticalPos=0;  // Position of the previous critical point
+        while (curr->next) {
+            int valPrev = prev->val;
+            int valCurr = curr->val;
+            int valNext = curr->next->val;
 
-        int i=0;  // Index counter for nodes
-        vector<int>result={-1,-1}; //if fewer than 2 critical points are found
-
-        while(head!= NULL){    // Traverse the linked list
-            prevVal= currVal;
-            currVal= nextVal;
-            nextVal=head->val;
-
-            // Check if current node is a critical point
-            // Condition: local minima OR local maxima
-            if(prevVal!=0 && currVal!=0 && nextVal!= 0 && 
-            ((prevVal>currVal && currVal<nextVal)||(prevVal<currVal && currVal>nextVal))){
-
-                if(firstCriticalPos==0){
-                    firstCriticalPos=i;
-                }else{
-                    minDist = min(minDist, i-prevCriticalPos);   // Update minimum distance 
-                    result={minDist,i-firstCriticalPos};   // Update result
+            // Check local maxima/minima
+            if ((valCurr > valPrev && valCurr > valNext) ||
+                (valCurr < valPrev && valCurr < valNext)) {
+                
+                if (firstCritical == -1) firstCritical = idx;
+                else {
+                    minDist = min(minDist, idx - prevCritical);
+                    lastCritical = idx;
                 }
-                prevCriticalPos=i;   // Update previous critical point position
+                prevCritical = idx;
             }
-            i++;
-            head= head->next;
+
+            prev = curr;
+            curr = curr->next;
+            idx++;
         }
-        return result;
-        
+
+        if (lastCritical == -1) return {-1, -1};
+        return {minDist, lastCritical - firstCritical};
     }
 };
